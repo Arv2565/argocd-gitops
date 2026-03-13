@@ -1,0 +1,9 @@
+server:
+  dev:
+    enabled: true        # dev mode for local testing
+  service:
+    type: ClusterIP
+ui:
+  enabled: true
+injector:
+  enabled: false         # disable agent injector for local KIND
