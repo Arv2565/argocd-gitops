@@ -1,0 +1,6 @@
+expose:
+  type: clusterIP
+externalURL: http://localhost:8888
+harborAdminPassword: "Harbor12345"
+persistence:
+  enabled: false
