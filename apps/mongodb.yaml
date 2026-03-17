@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: gitops-apps
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: mongodb
+      targetRevision: 16.x.x
+      helm:
+        valueFiles:
+          - $values/mongodb/values.yaml
+    - repoURL: https://github.com/Arv2565/argocd-gitops.git
+      targetRevision: master
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mongodb
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
